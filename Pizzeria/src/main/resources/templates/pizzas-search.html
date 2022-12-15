@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Bootstrap CSS -->
+		<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
+		<title>Pizzeria | Cerca una pizza</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="mt-2">Cerca una pizza</h1>
+			<a class="nav-link" href="/pizza/create" >> AGGIUNGI UNA PIZZA</a>
+			
+			<form>
+				<label class="form-label">Nome: </label>
+				<input class="form-control" type="text" name="q" th:value="${query}">
+				<button class="btn btn-primary mt-2 w-100" type="submit" value="SEARCH">Cerca</button>
+			</form>
+			
+			<ul class="list-group">
+				<li class="list-group-item"
+					th:each="pizza : ${pizzas}"
+					th:object="${pizza}">
+					
+					<a class="text-decoration-none fs-3" th:href="@{/pizza/{id} (id=*{id})}">
+						 [[*{nome}]]
+					</a>
+					
+					<br>
+		
+					<a class="btn btn-sm btn-primary" th:href="@{/pizza/update/{id} (id=*{id})}">
+						UPDATE
+					</a> 
+					<a class="btn btn-sm btn-danger" th:href="@{/pizza/delete/{id} (id=*{id})}">
+						DELETE
+					</a>
+				</li>
+			</ul>
+			<div class="text-center mt-2">
+				<a class="btn btn-warning" href="/" >Torna alla lista</a>
+			</div>
+		</div>
+		
+		<!-- Bootstrap Bundle with Popper -->
+		<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+	</body>
+</html>
