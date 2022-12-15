@@ -2,16 +2,22 @@ package org.generation.italy.demo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.generation.italy.demo.pojo.Drink;
 import org.generation.italy.demo.pojo.Ingredient;
 import org.generation.italy.demo.pojo.Pizza;
 import org.generation.italy.demo.pojo.Promotion;
+import org.generation.italy.demo.pojo.Role;
+import org.generation.italy.demo.pojo.User;
 import org.generation.italy.demo.service.DrinkService;
 import org.generation.italy.demo.service.IngredientService;
 import org.generation.italy.demo.service.PizzaService;
 import org.generation.italy.demo.service.PromotionService;
+import org.generation.italy.demo.service.RoleService;
+import org.generation.italy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,6 +37,12 @@ public class PizzeriaApplication implements CommandLineRunner {
 	
 	@Autowired
 	private IngredientService ingredientService;
+	
+	@Autowired 
+	private UserService userService;
+
+	@Autowired
+	private RoleService roleService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PizzeriaApplication.class, args);
@@ -130,6 +142,23 @@ public class PizzeriaApplication implements CommandLineRunner {
 			System.err.println(i +  "\n" + i.getPizzas() + "\n");
 		}
 		
+		// Auth
+		
+		Role admin = new Role("admin");
+		Role user = new Role("user");
+
+		roleService.save(admin);
+		roleService.save(user);
+
+		Set<Role> roles = new HashSet<>();
+		roles.add(user);
+		roles.add(admin);
+
+		User user1 = new User("user", "user", user);
+		User admin1 = new User("admin", "admin", admin);
+
+		userService.save(user1);
+		userService.save(admin1);
 		
 	}
 }
