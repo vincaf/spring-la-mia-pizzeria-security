@@ -1,10 +1,15 @@
 package org.generation.italy.demo.pojo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -24,11 +29,20 @@ public class User {
 	@NotNull
 	@NotEmpty
 	private String password;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Role> roles;
 
 	public User() {} 
-	public User(String username, String password) {
+	public User(String username, String password, Set<Role> roles) {
 		setUsername(username);
 		setPassword(password);
+		setRoles(roles);
+	}
+	public User(String username, String password, Role role) {
+		setUsername(username);
+		setPassword(password);
+		addRole(role);
 	}
 
 	public int getId() {
@@ -53,6 +67,20 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void addRole(Role role) {
+		if (getRoles() == null)
+			roles = new HashSet<>();
+		getRoles().add(role);
 	}
 
 	@Override
