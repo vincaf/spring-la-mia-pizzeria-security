@@ -10,8 +10,11 @@
 	<body>
 		<div class="container">
 			<h1 class="mt-2">Pizzeria - Homepage</h1>
+		  	
+		  	<a th:href="@{/login}" class="p-3">Login</a>
+		  	<a th:href="@{/logout}" class="p-3">Logout</a>
 			
-			<a class="nav-link" href="/pizza/admin/create" >> AGGIUNGI UNA PIZZA</a>
+			<a class="nav-link" href="/pizza/admin/create" sec:authorize="hasAuthority('ADMIN')" >> AGGIUNGI UNA PIZZA</a>
 			<a class="nav-link" href="/pizza/user/search">> CERCA UNA PIZZA</a>
 			<a class="nav-link" href="/available">> CERCA NEL MENU'</a>
 			
