@@ -24,7 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/pizza")
 public class PizzaController {
 
 	@Autowired
@@ -36,7 +36,7 @@ public class PizzaController {
 	@Autowired
 	private IngredientService ingredientService;
 	
-	@GetMapping
+	@GetMapping("/user")
 	public String getPizzas(Model model) {
 		
 		List<Pizza> pizzas = pizzaService.findAll();
@@ -45,7 +45,7 @@ public class PizzaController {
 		return "pizzas";
 	}
 	
-	@GetMapping("/pizza/{id}")
+	@GetMapping("/user/{id}")
 	public String getPizza(@PathVariable("id") int id, Model model) {
 		
 		Optional<Pizza> optPizza = pizzaService.findPizzaById(id);
@@ -61,7 +61,7 @@ public class PizzaController {
 		return "pizza";
 	}
 	
-	@GetMapping("/pizza/create")
+	@GetMapping("/admin/create")
 	public String createPizza(Model model) {
 		
 		List<Ingredient> ingredients = ingredientService.findAllWPizza();
@@ -74,7 +74,7 @@ public class PizzaController {
 		return "pizza-create";
 	}
 	
-	@PostMapping("/pizza/create")
+	@PostMapping("/admin/create")
 	public String storePizza(@Valid @ModelAttribute("pizza") Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
 		if(bindingResult.hasErrors()) {
@@ -84,10 +84,10 @@ public class PizzaController {
 		
 		pizzaService.save(pizza);
 		
-		return "redirect:/";
+		return "redirect:/pizza/user";
 	}
 	
-	@GetMapping("/pizza/update/{id}")
+	@GetMapping("/admin/update/{id}")
 	public String editPizza(@PathVariable("id") int id, Model model) {
 		
 		Optional<Pizza> optPizza = pizzaService.findPizzaById(id);
@@ -103,7 +103,7 @@ public class PizzaController {
 		return "pizza-update";
 	}
 	
-	@PostMapping("/pizza/store")
+	@PostMapping("/admin/store")
 	public String updatePizza(@Valid @ModelAttribute("pizza") Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 		if(bindingResult.hasErrors()) {
@@ -113,10 +113,10 @@ public class PizzaController {
 		
 		pizzaService.save(pizza);		
 		
-		return "redirect:/";
+		return "redirect:/pizza/user";
 	}
 	
-	@GetMapping("/pizza/delete/{id}")
+	@GetMapping("/admin/delete/{id}")
 	public String deletePizza(@PathVariable("id") int id) {
 		
 		Optional<Pizza> optPizza = pizzaService.findPizzaById(id);
@@ -124,10 +124,10 @@ public class PizzaController {
 		
 		pizzaService.delete(pizza);
 		
-		return "redirect:/";
+		return "redirect:/pizza/user";
 	}
 	
-	@GetMapping("/search")
+	@GetMapping("/user/search")
 	public String getSearchPizzaByName(Model model, 
 			@RequestParam(name = "q", required = false) String query) {
 

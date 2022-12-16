@@ -23,7 +23,7 @@
 			
 			<form 
 			method="POST" 
-			action="/pizza/store"
+			th:action="@{/pizza/admin/store}"
 			th:object="${pizza}" >
 			
 				<input type="number" name="id" th:field="*{id}" style="display:none">

@@ -11,8 +11,8 @@
 		<div class="container">
 			<h1 class="mt-2">Pizze</h1>
 			
-			<a class="nav-link" href="/pizza/create" >> AGGIUNGI UNA PIZZA</a>
-			<a class="nav-link" href="/search">> CERCA UNA PIZZA</a>
+			<a class="nav-link" href="/pizza/admin/create" >> AGGIUNGI UNA PIZZA</a>
+			<a class="nav-link" href="user/search">> CERCA UNA PIZZA</a>
 			<a class="nav-link" href="/available">> CERCA NEL MENU'</a>
 			
 			<ul class="list-group">
@@ -20,7 +20,7 @@
 					th:each="pizza : ${pizzas}"
 					th:object="${pizza}">
 					
-					<a class="text-decoration-none fs-3" th:href="@{/pizza/{id} (id=*{id})}">
+					<a class="text-decoration-none fs-3" th:href="@{/pizza/user/{id} (id=*{id})}">
 						 [[*{nome}]]
 					</a>
 					
@@ -29,10 +29,10 @@
 					<div th:if="${!pizza.ingredients.isEmpty()}">Ingredienti: [[*{ingredients}]] </div>
 					<br>
 		
-					<a class="btn btn-sm btn-primary" th:href="@{/pizza/update/{id} (id=*{id})}">
+					<a class="btn btn-sm btn-primary" th:href="@{admin/update/{id} (id=*{id})}">
 						UPDATE
 					</a> 
-					<a class="btn btn-sm btn-danger" th:href="@{/pizza/delete/{id} (id=*{id})}">
+					<a class="btn btn-sm btn-danger" th:href="@{admin/delete/{id} (id=*{id})}">
 						DELETE
 					</a>
 				</li>
