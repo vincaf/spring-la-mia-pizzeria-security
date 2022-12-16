@@ -154,8 +154,8 @@ public class PizzeriaApplication implements CommandLineRunner {
 		roles.add(user);
 		roles.add(admin);
 
-		User user1 = new User("user", "user", user);
-		User admin1 = new User("admin", "admin", admin);
+		User user1 = new User("user", "{noop}user", user);
+		User admin1 = new User("admin", "{noop}admin", admin);
 
 		userService.save(user1);
 		userService.save(admin1);
